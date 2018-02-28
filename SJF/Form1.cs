@@ -49,7 +49,7 @@ namespace SJF
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-
+            //En este evento agreguen las condiciones y todo ya que se siempre se esta ejecutando
         }
     }
 }
