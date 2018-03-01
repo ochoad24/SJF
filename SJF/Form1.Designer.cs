@@ -50,7 +50,7 @@
             this.listBox1.ItemHeight = 20;
             this.listBox1.Location = new System.Drawing.Point(334, 86);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(233, 184);
+            this.listBox1.Size = new System.Drawing.Size(456, 184);
             this.listBox1.TabIndex = 0;
             // 
             // button1
@@ -100,7 +100,7 @@
             // 
             this.progressBar1.Location = new System.Drawing.Point(338, 413);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(233, 57);
+            this.progressBar1.Size = new System.Drawing.Size(452, 57);
             this.progressBar1.TabIndex = 7;
             // 
             // label3
@@ -148,7 +148,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(597, 493);
+            this.ClientSize = new System.Drawing.Size(802, 506);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
