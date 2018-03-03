@@ -32,6 +32,10 @@ namespace SJF
         {
             //Este es el timer que empiza a contar desde el principio
             timer1.Enabled = true;
+            timer1.Start();
+            timer1.Interval = 100;
+            progressBar1.Maximum = 10;
+            timer1.Tick += new EventHandler(timer1_Tick);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -42,23 +46,46 @@ namespace SJF
             miProceso.Nombre = nom.Text;
             miProceso.Tiempo_procesos = (int)Math.Round(numeric_time.Value);
             miProceso.Estado = 0;
+            miProceso.tiempo_restante();
             //Se agrega a la lista enlazada un elemento de tipo proceso
             misProcesos.Add(miProceso);
         }
-
+       
         private void timer1_Tick(object sender, EventArgs e)
         {
             //En este evento agreguen las condiciones y todo ya que se siempre se esta ejecutando
-            //Enseñando a Dany
+            if (misProcesos.Count() > 0)
+            {
+                //Variable de la clase Proceso para guardar que proceso se va a ejecutar
+                Proceso enEjecucion = new Proceso();
+                Proceso Ant = new Proceso();
+                //Este linea ordena la lista ascendentemente
+                Ant = misProcesos[0];
+                misProcesos = misProcesos.OrderBy(Ord => Ord.Tiempo_procesos).ToList();
+                enEjecucion = misProcesos[0];
+                if (misProcesos.Count() > 1)
+                {
+                    if(Ant.Nombre!=misProcesos[0].Nombre)
+                    {
+                        misProcesos[1].Estado = 2;
+                    }
+                }
+                textBox1.Text = enEjecucion.Nombre;
+                textBox2.Text = enEjecucion.Temp_restante.ToString();
+                misProcesos[0].Estado = 1;
+                
+            }
             //Se limpia el list box
             listBox1.Items.Clear();
-            //Este linea ordena la lista ascendentemente
-            misProcesos = misProcesos.OrderBy(Ord=>Ord.Tiempo_procesos).ToList();
             foreach (Proceso Temp in misProcesos)
-            {   
+            {
                 if (Temp.Estado == 0)
                     Estado = "En Espera...";
-                listBox1.Items.Add(Temp.Nombre + " Tiempo: " + Temp.Tiempo_procesos + " Estado: " + Estado);
+                if (Temp.Estado == 1)
+                    Estado = "En Ejecucion";
+                if (Temp.Estado == 2)
+                    Estado = "Pausa";
+                listBox1.Items.Add(string.Format("{0} Tiempo: {1} Estado: {2} {3}", Temp.Nombre, Temp.Tiempo_procesos, Estado, Temp.Temp_restante));
             }
         }
     }
