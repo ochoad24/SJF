@@ -66,7 +66,7 @@ namespace SJF
         //Metodo para calcular el tiempo_restaste
         public void tiempo_restante()
         {
-            Temp_restante = Tiempo_procesos;
+            Temp_restante = Tiempo_procesos*10;
         }
     }
 }
