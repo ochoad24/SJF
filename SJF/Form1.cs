@@ -52,23 +52,36 @@ namespace SJF
        
         private void timer1_Tick(object sender, EventArgs e)
         {
+            //Se limpia el list box
+            listBox1.Items.Clear();
+            foreach (Proceso Temp in misProcesos)
+            {
+                if (Temp.Estado == 0)
+                    Estado = "En Espera...";
+                if (Temp.Estado == 1)
+                    Estado = "En Ejecucion";
+                if (Temp.Estado == 2)
+                    Estado = "Pausa";
+                Temp.Tiempo = Temp.tiempo_restante(Temp.Temp_restante, Temp.Tiempo_procesos);
+                listBox1.Items.Add(string.Format("{0} Tiempo: {1} Estado: {2}", Temp.Nombre, Temp.Tiempo_procesos, Estado));
+            }
             if (misProcesos.Count() == 0)
             {
                 textBox1.Text = "";
                 textBox2.Text = "";
             }
-                //En este evento agreguen las condiciones y todo ya que se siempre se esta ejecutando
-                if (misProcesos.Count() > 0)
+            //En este evento agreguen las condiciones y todo ya que se siempre se esta ejecutando
+            if (misProcesos.Count() > 0)
             {
                 //Variable de la clase Proceso para guardar que proceso se va a ejecutar
                 Proceso enEjecucion = new Proceso();
                 Proceso Ant = new Proceso();
                 //Este linea ordena la lista ascendentemente
                 Ant = misProcesos[0];
-                misProcesos = misProcesos.OrderBy(Ord => Ord.Tiempo_procesos).ToList();
+                misProcesos = misProcesos.OrderBy(Ord => Ord.Tiempo).ToList();
                 if (misProcesos.Count() > 1)
                 {
-                    if(Ant.Nombre!=misProcesos[0].Nombre)
+                    if (Ant.Nombre != misProcesos[0].Nombre)
                     {
                         misProcesos[1].Estado = 2;
                         misProcesos[1].Temp_restante = progressBar1.Value;
@@ -76,13 +89,13 @@ namespace SJF
                 }
                 enEjecucion = misProcesos[0];
                 textBox1.Text = enEjecucion.Nombre;
-                textBox2.Text = string.Format("{0} / {1}", enEjecucion.Temp_restante / 10, enEjecucion.Tiempo_procesos);
+                textBox2.Text = enEjecucion.Tiempo.ToString();
                 misProcesos[0].Estado = 1;
-                if (enEjecucion.Estado==1)
+                if (enEjecucion.Estado == 1)
                 {
                     progressBar1.Maximum = enEjecucion.Tiempo_procesos * 10;
                     progressBar1.Value = misProcesos[0].Temp_restante;
-                    if (progressBar1.Value != enEjecucion.Tiempo_procesos*10)
+                    if (progressBar1.Value != enEjecucion.Tiempo_procesos * 10)
                     {
                         progressBar1.Value++;
                         misProcesos[0].Temp_restante = progressBar1.Value;
@@ -98,18 +111,6 @@ namespace SJF
                     misProcesos.RemoveAt(0);
                 }
             }
-            //Se limpia el list box
-            listBox1.Items.Clear();
-            foreach (Proceso Temp in misProcesos)
-            {
-                if (Temp.Estado == 0)
-                    Estado = "En Espera...";
-                if (Temp.Estado == 1)
-                    Estado = "En Ejecucion";
-                if (Temp.Estado == 2)
-                    Estado = "Pausa";
-                listBox1.Items.Add(string.Format("{0} Tiempo: {1} Estado: {2}", Temp.Nombre, Temp.Tiempo_procesos, Estado));
-            }       
         }
     }
 }

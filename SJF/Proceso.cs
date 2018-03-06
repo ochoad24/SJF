@@ -12,6 +12,7 @@ namespace SJF
         private int tiempo_procesos;
         private int estado;
         private int temp_restante;
+        private int tiempo;
         public string Nombre
         {
             get
@@ -63,10 +64,26 @@ namespace SJF
                 temp_restante = value;
             }
         }
-        //Metodo para calcular el tiempo_restaste
-        public void tiempo_restante()
+
+        public int Tiempo
         {
-            Temp_restante = Tiempo_procesos*10;
+            get
+            {
+                return tiempo;
+            }
+
+            set
+            {
+                tiempo = value;
+            }
+        }
+
+        //Metodo para calcular el tiempo_restante
+        public int tiempo_restante(int Corriendo, int Total)
+        {
+            int Resultado;
+             Resultado= Total-(Corriendo/10);
+            return Resultado;
         }
     }
 }

@@ -156,9 +156,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(344, 384);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 20);
+            this.label6.Size = new System.Drawing.Size(135, 20);
             this.label6.TabIndex = 14;
-            this.label6.Text = "Tiempo:";
+            this.label6.Text = "Tiempo Restante:";
             // 
             // Form1
             // 
